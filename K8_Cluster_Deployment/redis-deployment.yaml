@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midterm-redis
+  labels:
+    app: midterm-redis
+spec:
+  selector:
+    matchLabels:
+      app: midterm-redis
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: midterm-redis
+    spec:
+      containers:
+        - image: redislabs/rejson:latest
+          imagePullPolicy: Always
+          name: midterm-redis
+          ports:
+          - containerPort: 6379
+

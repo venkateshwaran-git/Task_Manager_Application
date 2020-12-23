@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midterm-react
+  labels:
+    app: midterm-react
+spec:
+  selector:
+    matchLabels:
+      app: midterm-react
+  replicas: 3
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: midterm-react
+    spec:
+      containers:
+        - image: venkat271997/midterm-react
+          imagePullPolicy: Always
+          name: react-midterm
+          ports:
+          - containerPort: 80

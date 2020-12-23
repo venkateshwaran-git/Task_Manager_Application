@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midterm-flask
+  labels:
+    app: midterm-flask
+spec:
+  selector:
+    matchLabels:
+      app: midterm-flask
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: midterm-flask
+    spec:
+      containers:
+        - image: venkat271997/midterm-flask
+          imagePullPolicy: Always
+          name: midterm-flask
+          ports:
+          - containerPort: 5000

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: midterm-backend
+  labels:
+    app: midterm-backend
+spec:
+  selector:
+    matchLabels:
+      app: midterm-backend
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: midterm-backend
+    spec:
+      containers:
+        - image: venkat271997/midterm-backend
+          imagePullPolicy: Always
+          name: midterm-backend
+          ports:
+          - containerPort: 5000
